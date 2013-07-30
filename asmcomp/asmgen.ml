@@ -38,6 +38,9 @@ let pass_dump_linear_if ppf flag message phrase =
 let clambda_dump_if ppf ulambda =
   if !dump_clambda then Printclambda.clambda ppf ulambda; ulambda
 
+let quit_if flag cmm =
+  if !flag then exit 0 else cmm
+
 let rec regalloc ppf round fd =
   if round > 50 then
     fatal_error(fd.Mach.fun_name ^
@@ -108,6 +111,7 @@ let compile_implementation ?toplevel prefixname ppf (size, lam) =
     Closure.intro size lam
     ++ clambda_dump_if ppf
     ++ Cmmgen.compunit size
+    ++ quit_if Clflags.quit_after_cmm
     ++ List.iter (compile_phrase ppf) ++ (fun () -> ());
     (match toplevel with None -> () | Some f -> compile_genfuns ppf f);
 

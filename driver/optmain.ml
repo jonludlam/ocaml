@@ -143,6 +143,12 @@ module Options = Main_args.Make_optcomp_options (struct
   let _dlinear = set dump_linear
   let _dstartup = set keep_startup_file
 
+  let _qparse = set quit_after_parse
+  let _qtyping = set quit_after_typing
+  let _qrawlambda = set quit_after_rawlambda
+  let _qlambda = set quit_after_lambda
+  let _qcmm = set quit_after_cmm
+
   let anonymous = anonymous
 end);;
 

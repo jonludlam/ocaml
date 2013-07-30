@@ -76,6 +76,12 @@ val dump_scheduling : bool ref
 val dump_linear : bool ref
 val keep_startup_file : bool ref
 val dump_combine : bool ref
+val quit_after_parse : bool ref
+val quit_after_typing : bool ref
+val quit_after_rawlambda : bool ref
+val quit_after_lambda : bool ref
+val quit_after_instr : bool ref
+val quit_after_cmm : bool ref
 val native_code : bool ref
 val inline_threshold : int ref
 val dont_write_files : bool ref

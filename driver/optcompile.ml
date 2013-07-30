@@ -61,6 +61,9 @@ let print_if ppf flag printer arg =
   if !flag then fprintf ppf "%a@." printer arg;
   arg
 
+let quit_if flag arg =
+  if !flag then (Warnings.check_fatal (); exit 0) else arg
+
 let (++) x f = f x
 let (+++) (x, y) f = (x, f y)
 
@@ -81,20 +84,26 @@ let implementation ppf sourcefile outputprefix =
       Pparse.file ppf inputfile Parse.implementation ast_impl_magic_number
       ++ print_if ppf Clflags.dump_parsetree Printast.implementation
       ++ print_if ppf Clflags.dump_source Pprintast.structure
+      ++ quit_if Clflags.quit_after_parse
       ++ Typemod.type_implementation sourcefile outputprefix modulename env
       ++ print_if ppf Clflags.dump_typedtree
                   Printtyped.implementation_with_coercion
+      ++ quit_if Clflags.quit_after_typing
     end else begin
       Pparse.file ppf inputfile Parse.implementation ast_impl_magic_number
       ++ print_if ppf Clflags.dump_parsetree Printast.implementation
       ++ print_if ppf Clflags.dump_source Pprintast.structure
+      ++ quit_if Clflags.quit_after_parse
       ++ Typemod.type_implementation sourcefile outputprefix modulename env
       ++ print_if ppf Clflags.dump_typedtree
                   Printtyped.implementation_with_coercion
+      ++ quit_if Clflags.quit_after_typing
       ++ Translmod.transl_store_implementation modulename
       +++ print_if ppf Clflags.dump_rawlambda Printlambda.lambda
+      +++ quit_if Clflags.quit_after_rawlambda
       +++ Simplif.simplify_lambda
       +++ print_if ppf Clflags.dump_lambda Printlambda.lambda
+      +++ quit_if Clflags.quit_after_lambda
       ++ Asmgen.compile_implementation outputprefix ppf;
       Compilenv.save_unit_info cmxfile;
     end;

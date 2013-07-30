@@ -82,6 +82,13 @@ let dump_linear = ref false             (* -dlinear *)
 let keep_startup_file = ref false       (* -dstartup *)
 let dump_combine = ref false            (* -dcombine *)
 
+let quit_after_parse = ref false
+let quit_after_typing = ref false
+let quit_after_rawlambda = ref false
+let quit_after_lambda = ref false
+let quit_after_instr = ref false
+let quit_after_cmm = ref false
+
 let native_code = ref false             (* set to true under ocamlopt *)
 let inline_threshold = ref 10
 let force_slash = ref false             (* for ocamldep *)

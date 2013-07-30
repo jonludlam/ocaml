@@ -360,6 +360,30 @@ let mk_dinstr f =
   "-dinstr", Arg.Unit f, " (undocumented)"
 ;;
 
+let mk_qparse f =
+  "-qparse", Arg.Unit f, " (undocumented)"
+;;
+
+let mk_qtyping f =
+  "-qtyping", Arg.Unit f, " (undocumented)"
+;;
+
+let mk_qrawlambda f =
+  "-qrawlambda", Arg.Unit f, " (undocumented)"
+;;
+
+let mk_qlambda f =
+  "-qlambda", Arg.Unit f, " (undocumented)"
+;;
+
+let mk_qinstr f =
+  "-qinstr", Arg.Unit f, " (undocumented)"
+;;
+
+let mk_qcmm f =
+  "-qcmm", Arg.Unit f, " (undocumented)"
+;;
+
 let mk_dcmm f =
   "-dcmm", Arg.Unit f, " (undocumented)"
 ;;
@@ -477,6 +501,12 @@ module type Bytecomp_options = sig
   val _dlambda : unit -> unit
   val _dinstr : unit -> unit
 
+  val _qparse : unit -> unit
+  val _qtyping : unit -> unit
+  val _qrawlambda : unit -> unit
+  val _qlambda : unit -> unit
+  val _qinstr : unit -> unit
+
   val anonymous : string -> unit
 end;;
 
@@ -510,6 +540,12 @@ module type Bytetop_options = sig
   val _drawlambda : unit -> unit
   val _dlambda : unit -> unit
   val _dinstr : unit -> unit
+
+  val _qparse : unit -> unit
+  val _qtyping : unit -> unit
+  val _qrawlambda : unit -> unit
+  val _qlambda : unit -> unit
+  val _qinstr : unit -> unit
 
   val anonymous : string -> unit
 end;;
@@ -586,6 +622,12 @@ module type Optcomp_options = sig
   val _dlinear :  unit -> unit
   val _dstartup :  unit -> unit
 
+  val _qparse : unit -> unit
+  val _qtyping : unit -> unit
+  val _qrawlambda : unit -> unit
+  val _qlambda : unit -> unit
+  val _qcmm : unit -> unit
+
   val anonymous : string -> unit
 end;;
 
@@ -635,6 +677,12 @@ module type Opttop_options = sig
   val _dscheduling :  unit -> unit
   val _dlinear :  unit -> unit
   val _dstartup :  unit -> unit
+
+  val _qparse : unit -> unit
+  val _qtyping : unit -> unit
+  val _qrawlambda : unit -> unit
+  val _qlambda : unit -> unit
+  val _qcmm : unit -> unit
 
   val anonymous : string -> unit
 end;;
@@ -711,6 +759,12 @@ struct
     mk_dlambda F._dlambda;
     mk_dinstr F._dinstr;
 
+    mk_qparse F._qparse;
+    mk_qtyping F._qtyping;
+    mk_qrawlambda F._qrawlambda;
+    mk_qlambda F._qlambda;
+    mk_qinstr F._qinstr;
+
     mk__ F.anonymous;
   ]
 end;;
@@ -747,6 +801,12 @@ struct
     mk_drawlambda F._drawlambda;
     mk_dlambda F._dlambda;
     mk_dinstr F._dinstr;
+
+    mk_qparse F._qparse;
+    mk_qtyping F._qtyping;
+    mk_qrawlambda F._qrawlambda;
+    mk_qlambda F._qlambda;
+    mk_qinstr F._qinstr;
 
     mk__ F.anonymous;
   ]
@@ -827,6 +887,12 @@ struct
     mk_dlinear F._dlinear;
     mk_dstartup F._dstartup;
 
+    mk_qparse F._qparse;
+    mk_qtyping F._qtyping;
+    mk_qrawlambda F._qrawlambda;
+    mk_qlambda F._qlambda;
+    mk_qcmm F._qcmm;
+
     mk__ F.anonymous;
   ]
 end;;
@@ -877,6 +943,12 @@ module Make_opttop_options (F : Opttop_options) = struct
     mk_dscheduling F._dscheduling;
     mk_dlinear F._dlinear;
     mk_dstartup F._dstartup;
+
+    mk_qparse F._qparse;
+    mk_qtyping F._qtyping;
+    mk_qrawlambda F._qrawlambda;
+    mk_qlambda F._qlambda;
+    mk_qcmm F._qcmm;
 
     mk__ F.anonymous;
   ]

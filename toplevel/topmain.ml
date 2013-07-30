@@ -91,6 +91,12 @@ module Options = Main_args.Make_bytetop_options (struct
   let _dlambda = set dump_lambda
   let _dinstr = set dump_instr
 
+  let _qparse = set quit_after_parse
+  let _qtyping = set quit_after_typing
+  let _qrawlambda = set quit_after_rawlambda
+  let _qlambda = set quit_after_lambda
+  let _qinstr = set quit_after_instr
+
   let anonymous s = file_argument s
 end);;
 

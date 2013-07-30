@@ -98,6 +98,13 @@ module Options = Main_args.Make_bytecomp_options (struct
   let _drawlambda = option "-drawlambda"
   let _dlambda = option "-dlambda"
   let _dinstr = option "-dinstr"
+
+  let _qparse = option "-qparse"
+  let _qtyping = option "-qtyping"
+  let _qrawlambda = option "-qrawlambda"
+  let _qlambda = option "-qlambda"
+  let _qinstr = option "-qinstr"
+
   let anonymous = process_file
 end);;
 

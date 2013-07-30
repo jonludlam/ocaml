@@ -60,6 +60,9 @@ let print_if ppf flag printer arg =
   if !flag then fprintf ppf "%a@." printer arg;
   arg
 
+let quit_if flag arg =
+  if !flag then (Warnings.check_fatal (); exit 0) else arg
+
 let (++) x f = f x
 
 let implementation ppf sourcefile outputprefix =
@@ -76,9 +79,11 @@ let implementation ppf sourcefile outputprefix =
       Pparse.file ppf inputfile Parse.implementation ast_impl_magic_number
       ++ print_if ppf Clflags.dump_parsetree Printast.implementation
       ++ print_if ppf Clflags.dump_source Pprintast.structure
+      ++ quit_if Clflags.quit_after_parse 
       ++ Typemod.type_implementation sourcefile outputprefix modulename env
       ++ print_if ppf Clflags.dump_typedtree
-           Printtyped.implementation_with_coercion);
+           Printtyped.implementation_with_coercion 
+      ++ quit_if Clflags.quit_after_typing);
       Warnings.check_fatal ();
       Pparse.remove_preprocessed inputfile;
       Stypes.dump (Some (outputprefix ^ ".annot"));
@@ -93,15 +98,20 @@ let implementation ppf sourcefile outputprefix =
       Pparse.file ppf inputfile Parse.implementation ast_impl_magic_number
       ++ print_if ppf Clflags.dump_parsetree Printast.implementation
       ++ print_if ppf Clflags.dump_source Pprintast.structure
+      ++ quit_if Clflags.quit_after_parse 
       ++ Typemod.type_implementation sourcefile outputprefix modulename env
       ++ print_if ppf Clflags.dump_typedtree
                   Printtyped.implementation_with_coercion
+      ++ quit_if Clflags.quit_after_typing
       ++ Translmod.transl_implementation modulename
       ++ print_if ppf Clflags.dump_rawlambda Printlambda.lambda
+      ++ quit_if Clflags.quit_after_rawlambda
       ++ Simplif.simplify_lambda
       ++ print_if ppf Clflags.dump_lambda Printlambda.lambda
+      ++ quit_if Clflags.quit_after_lambda
       ++ Bytegen.compile_implementation modulename
       ++ print_if ppf Clflags.dump_instr Printinstr.instrlist
+      ++ quit_if Clflags.quit_after_instr
       ++ Emitcode.to_file oc modulename;
       Warnings.check_fatal ();
       close_out oc;

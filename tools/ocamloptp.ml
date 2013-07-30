@@ -114,6 +114,12 @@ module Options = Main_args.Make_optcomp_options (struct
   let _dlinear = option "-dlinear"
   let _dstartup = option "-dstartup"
 
+  let _qparse = option "-qparse"
+  let _qtyping = option "-qtyping"
+  let _qrawlambda = option "-qrawlambda"
+  let _qlambda = option "-qlambda"
+  let _qcmm = option "-qcmm"
+
   let anonymous = process_file
 end);;
 
